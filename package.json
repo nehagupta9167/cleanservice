@@ -1,38 +1,23 @@
 {
-  "name": "service",
-  "version": "1.0.0",
-  "description": "a sample webhook (with authentication) for api.ai",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nehagupta9167/service.git"
-  },
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js"
-  },
-  "keywords": [
-    "apiai",
-    "webhook"
-  ],
-  "author": "Neha Gupta",
-  "license": "ISC",
-  "dependencies": {
-    "body-parser": "^1.18.3",
-    "express": "^4.16.4",
-    "twilio": "^3.29.0"
-  },
+  "name": "dialogflowFirebaseFulfillment",
+  "description": "This is the default fulfillment for a Dialogflow agents using Cloud Functions for Firebase",
+  "version": "0.0.1",
+  "private": true,
+  "license": "Apache Version 2.0",
+  "author": "Google Inc.",
   "engines": {
-    "node": "8.1.4"
+    "node": "8"
   },
-  "bugs": {
-    "url": "https://github.com/nehagupta9167/service/issues"
+  "scripts": {
+    "start": "firebase serve --only functions:dialogflowFirebaseFulfillment",
+    "deploy": "firebase deploy --only functions:dialogflowFirebaseFulfillment"
   },
-  "homepage": "https://github.com/nehagupta9167/service#readme",
-  "devDependencies": {
+  "dependencies": {
     "actions-on-google": "^2.2.0",
     "firebase-admin": "^5.13.1",
     "firebase-functions": "^2.0.2",
     "dialogflow": "^0.6.0",
-    "dialogflow-fulfillment": "^0.5.0"
+    "dialogflow-fulfillment": "^0.5.0",
+    "twilio": "^3.29.0"
   }
 }
