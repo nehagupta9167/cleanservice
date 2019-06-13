@@ -1,0 +1,32 @@
+{
+  "name": "service",
+  "version": "1.0.0",
+  "description": "a sample webhook (with authentication) for api.ai",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nehagupta9167/service.git"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "apiai",
+    "webhook"
+  ],
+  "author": "Neha Gupta",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "twilio": "^3.29.0"
+  },
+  "engines": {
+    "node": "8.1.4"
+  },
+  "bugs": {
+    "url": "https://github.com/nehagupta9167/service/issues"
+  },
+  "homepage": "https://github.com/nehagupta9167/service#readme",
+  "devDependencies": {}
+}
