@@ -110,7 +110,7 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
   
   if ( giventext == 'book' || giventext == 'want') {
     client.messages.create({
-      body: 'We want to book a cleaning service for' +givendate+ 'and' +giventime '.',
+      body: 'We want to book a cleaning service for' +givendate+ 'and' +giventime+ '.',
       from: '+18727139684',
       to: '+13313083436'
      }).then((messsage) => console.log(message.sid));
