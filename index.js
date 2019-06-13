@@ -5,19 +5,19 @@ const {WebhookClient} = require('dialogflow-fulfillment');
 
 process.env.DEBUG = 'dialogflow:*'; 
 
-const express = require('express');
-const bodyParser = require('body-parser');
-const http = require('http');
-const app = express();
+//const express = require('express');
+//const bodyParser = require('body-parser');
+//const http = require('http');
+// const app = express();
 
 const accountSid = 'ACf46eea333563a2c457fd524a938e21f2';
 const authToken = 'a15564ff3d8554f579c782882ce1ba81';
 const client = require('twilio')(accountSid, authToken);
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 
-app.use(bodyParser.urlencoded({ extended: true}));
-app.use(bodyParser.json());
-app.set('port', (process.env.PORT || 5000))
+//app.use(bodyParser.urlencoded({ extended: true}));
+//app.use(bodyParser.json());
+//app.set('port', (process.env.PORT || 5000))
 
 
 exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, response) => {
@@ -33,7 +33,7 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
   // res.send('You must POST your request')
 // })
 
-app.use(bodyParser.json());
+//app.use(bodyParser.json());
  //app.post('/', function (req, res) {
   // we expect to receive JSON data from api.ai here.
   // the payload is stored on req.body
