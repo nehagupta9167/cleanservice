@@ -1,0 +1,6 @@
+{
+  "name": "cleanservice",
+  "description": "a sample webhook (with authentication) for api.ai",
+  "repository": "https://github.com/nehagupta9167/cleanservice",
+  "keywords": ["api.ai", "webhook"]
+}
