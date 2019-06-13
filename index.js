@@ -26,25 +26,25 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
   
   function bookservice (agent) {
     
-    app.get('/', function (req, res) {
-  res.send('Use the /webhook endpoint.')
-})
-app.get('/webhook', function (req, res) {
-  res.send('You must POST your request')
-})
+    // app.get('/', function (req, res) {
+  // res.send('Use the /webhook endpoint.')
+// })
+// app.get('/webhook', function (req, res) {
+  // res.send('You must POST your request')
+// })
 
 app.use(bodyParser.json());
-app.post('/', function (req, res) {
+ //app.post('/', function (req, res) {
   // we expect to receive JSON data from api.ai here.
   // the payload is stored on req.body
-  console.log(req.body)
+ // console.log(req.body)
   
 
   
   // and some validation too
-  if (!req.body ) {
-    return res.status(400).send('Bad Request')
-  }
+  // if (!req.body ) {
+    // return res.status(400).send('Bad Request')
+  // }
  
   //const util = require('util')
 
@@ -58,13 +58,27 @@ app.post('/', function (req, res) {
 //   }
 
   // the value of Action from api.ai is stored in req.body.result.action
-  console.log('* Received action -- %s', req.body.action)
+  // console.log('* Received action -- %s', req.body.action)
 
   // parameters are stored in req.body.result.parameters
-  var givendate = req.body['date']
-  var giventime = req.body['time']
-  var sidmessg = ""
-  var webhookReply = 'Okay let me check for ' + givendate + 'and' + giventime + '.'
+  const givendate = agent.parameters.date;
+  const giventime = agent.parameters.time;
+  const giventext = agent.parameters.text;
+  var sidmessg = "";
+  const gotdate = givendate.length > 0;
+  const gottime = giventime.length > 0;
+
+  // var webhookReply = 'Okay let me check for ' + givendate + 'and' + giventime + '.'
+  
+  if(gotdate && gottime) {
+        agent.add(`Nice, you want to book f0r ${date} at ${time}.`);
+    } else if (gotdate && !gottime) {
+        agent.add('Let me know which time you want the service');
+    } else if (gottime && !gotdate) {
+        agent.add('Let me know which date you want the service');
+    } else {
+        agent.add('Let me know which date and time you want the service');
+    }
   
 //respone
 //  if (req.body['text'].toString().trim() == 'book') {
@@ -94,30 +108,30 @@ app.post('/', function (req, res) {
   // the most basic response
   
   
-  if (req.body['text'].toString().trim() == 'book') {
+  if ( giventext == 'book' || giventext == 'want') {
     client.messages.create({
-      body: 'This is the ship that made the Kessel Run in fourteen parsecs?',
+      body: 'We want to book a cleaning service for' +givendate+ 'and' +giventime '.',
       from: '+18727139684',
-      to: '+14047954576'
-     })
-    .then(message  => sidmessg = message.sid);
+      to: '+13313083436'
+     }).then((messsage) => console.log(message.sid));
    // => console.log(message.sid)
     //res.send('message sent')
-    res.status(200).json({
-    source: 'webhook',
-    speech: webhookReply,
-    sid: sidmessg,
-    displayText: webhookReply
-  })
+    // res.status(200).json({
+    // source: 'webhook',
+    // speech: webhookReply,
+    // sid: sidmessg,
+    // displayText: webhookReply
+	agent.add('Okay let me check for ' + givendate + 'and' + giventime + '.');
   }
   else 
-   {return res.send('message not sent')};
- 
+	  { agent.add('Sorry some some error occured')}
   
-})
-
-app.listen(app.get('port'), function () {
-  console.log('* Webhook service is listening on port:' + app.get('port'))
-})
 }
-  
+
+let intentMap = new Map();
+  intentMap.set('cleaningservice', bookservice);
+  agent.handleRequest(intentMap);
+});
+// app.listen(app.get('port'), function () {
+  // console.log('* Webhook service is listening on port:' + app.get('port'))
+// })
