@@ -71,7 +71,7 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
   // var webhookReply = 'Okay let me check for ' + givendate + 'and' + giventime + '.'
   
   if(gotdate && gottime) {
-        agent.add(`Nice, you want to book for' +givendate+ 'at' +giventime+ '.');
+        agent.add('Nice, you want to book for' +givendate+ 'at' +giventime+ '.');
     } else if (gotdate && !gottime) {
         agent.add('Let me know which time you want the service');
     } else if (gottime && !gotdate) {
