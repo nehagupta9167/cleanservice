@@ -34,10 +34,10 @@ app.get('/webhook', function (req, res) {
 app.use(bodyParser.json());
 //exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, response) => {
 app.post('/', function (req, res) {
-  //const agent = new WebhookClient({ request, response });
+  const agent = new WebhookClient({ request: req, response: res })
 
   
- // function bookservice (agent) {
+  function bookservice (agent) {
   var givendate = req.body.queryResult.parameters['date']
   var giventime = req.body.queryResult.parameters['time']
   var replymsg = 'This is the response from service'
@@ -72,9 +72,10 @@ app.post('/', function (req, res) {
       to: '+13313083436'
      })
     .then(message  => console.log(message.sid));
+	   agent.add('Okay let me check for ' + givendate + 'and' + giventime + '.');
 	   }
    else 
-    {return res.send('message not sent')};
+    {agent.add('Sorry some some error occured')};
   
 //   if ( giventext == 'book' || giventext == 'want') {
 //     client.messages.create({
@@ -88,18 +89,18 @@ app.post('/', function (req, res) {
 //   else 
 // 	  { agent.add('Sorry some some error occured')}
   
-//}
+}
 
-// let intentMap = new Map();
-//   intentMap.set('cleaningservice', bookservice);
-//   agent.handleRequest(intentMap);
-     res.status(200).json({
-     source: 'webhook',
+ let intentMap = new Map();
+   intentMap.set('cleaningservice', bookservice);
+  agent.handleRequest(intentMap);
+//      res.status(200).json({
+//      source: 'webhook',
      
-     speech: 'The  ' +replymsg+ 'for booking' +webhookReply ,
-     //sid: sidmessg,
-     displayText: 'The service provider replied: ' +replymsg+ 'for booking' +webhookReply
-	     })
+//      speech: 'The  ' +replymsg+ 'for booking' +webhookReply ,
+//      //sid: sidmessg,
+//      displayText: 'The service provider replied: ' +replymsg+ 'for booking' +webhookReply
+// 	     })
 })
 
 //app.listen(process.env.PORT || 8080)
