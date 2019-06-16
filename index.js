@@ -19,14 +19,14 @@ const MessagingResponse = require('twilio').twiml.MessagingResponse;
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 
-// app.get('/', function (req, res) {
-//   res.send('online')
-// })
+ app.get('/', function (req, res) {
+   res.send('online')
+ })
 
-app.get('/', (req, res) => res.send('online'))
+//app.get('/', (req, res) => res.send('online'))
 
 //exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, response) => {
-app.post('/', function (req, res) => {
+app.post('/', function (req, res) {
   const agent = new WebhookClient({ request, response });
 
   
