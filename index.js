@@ -24,7 +24,7 @@ app.use(bodyParser.json());
  })
 
 //app.get('/', (req, res) => res.send('online'))
-
+app.use(bodyParser.json());
 //exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, response) => {
 app.post('/', function (req, res) {
   const agent = new WebhookClient({ request, response });
