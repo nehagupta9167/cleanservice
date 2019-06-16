@@ -38,56 +38,56 @@ app.post('/', function (req, res) {
 
   
   function bookservice (agent) {
-  var givendate = req.body.queryResult.parameters['date']
-  var giventime = req.body.queryResult.parameters['time']
-  var replymsg = 'This is the response from service'
-  var sidmessg = ""
-  var webhookReply = 'the service for ' + givendate + 'and' + giventime + '.'
+//   var givendate = req.body.queryResult.parameters['date']
+//   var giventime = req.body.queryResult.parameters['time']
+//   var replymsg = 'This is the response from service'
+//   var sidmessg = ""
+//   var webhookReply = 'the service for ' + givendate + 'and' + giventime + '.'
    
 
   // parameters are stored in req.body.result.parameters
-//   const givendate = agent.parameters.date;
-//   const giventime = agent.parameters.time;
-//   const giventext = agent.parameters.text;
-//   var sidmessg = "";
-//   const gotdate = givendate.length > 0;
-//   const gottime = giventime.length > 0;
+  const givendate = agent.parameters.date;
+  const giventime = agent.parameters.time;
+  const giventext = agent.parameters.text;
+  var sidmessg = "";
+  const gotdate = givendate.length > 0;
+  const gottime = giventime.length > 0;
 
   // var webhookReply = 'Okay let me check for ' + givendate + 'and' + giventime + '.'
   
-//   if(gotdate && gottime) {
-//         agent.add('Nice, you want to book f0r' +givendate+ 'at' +giventime+ '.');
-//     } else if (gotdate && !gottime) {
-//         agent.add('Let me know which time you want the service');
-//     } else if (gottime && !gotdate) {
-//         agent.add('Let me know which date you want the service');
-//     } else {
-//         agent.add('Let me know which date and time you want the service');
-//     }
+  if(gotdate && gottime) {
+        agent.add('Nice, you want to book f0r' +givendate+ 'at' +giventime+ '.');
+    } else if (gotdate && !gottime) {
+        agent.add('Let me know which time you want the service');
+    } else if (gottime && !gotdate) {
+        agent.add('Let me know which date you want the service');
+    } else {
+        agent.add('Let me know which date and time you want the service');
+    }
  
-   if (req.body.queryResult.parameters['text'] == 'book') {
-    client.messages.create({
-      body: 'We want to book a cleaning service  for ' + givendate + 'and' + giventime + '.',
-      from: '+18727139684',
-      to: '+13313083436'
-     })
-    .then(message  => console.log(message.sid));
-	   agent.add('Okay let me check for ' + givendate + 'and' + giventime + '.');
-	   }
-   else 
-    {agent.add('Sorry some some error occured')};
-  
-//   if ( giventext == 'book' || giventext == 'want') {
+//    if (req.body.queryResult.parameters['text'] == 'book') {
 //     client.messages.create({
-//       body: 'We want to book a cleaning service for' +givendate+ 'and' +giventime+ '.',
+//       body: 'We want to book a cleaning service  for ' + givendate + 'and' + giventime + '.',
 //       from: '+18727139684',
 //       to: '+13313083436'
-//      }).then((messsage) => console.log(message.sid));
+//      })
+//     .then(message  => console.log(message.sid));
+// 	   agent.add('Okay let me check for ' + givendate + 'and' + giventime + '.');
+// 	   }
+//    else 
+//     {agent.add('Sorry some some error occured')};
   
-// 	agent.add('Okay let me check for ' + givendate + 'and' + giventime + '.');
-//   }
-//   else 
-// 	  { agent.add('Sorry some some error occured')}
+  if ( giventext == 'book' || giventext == 'want') {
+    client.messages.create({
+      body: 'We want to book a cleaning service for' +givendate+ 'and' +giventime+ '.',
+      from: '+18727139684',
+      to: '+13313083436'
+     }).then((messsage) => console.log(message.sid));
+  
+	agent.add('Okay let me check for ' + givendate + 'and' + giventime + '.');
+  }
+  else 
+	  { agent.add('Sorry some some error occured')}
   
 }
 
