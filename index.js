@@ -1,9 +1,10 @@
 
 'use strict';
 
-const functions = require('firebase-functions');
+const express = require('express')
+//const functions = require('firebase-functions');
 const {WebhookClient} = require('dialogflow-fulfillment');
-
+const app = express()
 process.env.DEBUG = 'dialogflow:*'; 
 
 
@@ -13,8 +14,10 @@ const authToken = 'a15564ff3d8554f579c782882ce1ba81';
 const client = require('twilio')(accountSid, authToken);
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 
+app.get('/', (req, res) => res.send('online'))
 
-exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, response) => {
+//exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, response) => {
+app.post('/dialogflow', express.json(), (req, res) => {
   const agent = new WebhookClient({ request, response });
 
   
@@ -61,5 +64,7 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
 let intentMap = new Map();
   intentMap.set('cleaningservice', bookservice);
   agent.handleRequest(intentMap);
-});
+})
+
+app.listen(process.env.PORT || 8080)
 
