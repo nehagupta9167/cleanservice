@@ -5,6 +5,8 @@ const express = require('express')
 //const functions = require('firebase-functions');
 const {WebhookClient} = require('dialogflow-fulfillment');
 const app = express()
+const bodyParser = require('body-parser');
+const http = require('http');
 process.env.DEBUG = 'dialogflow:*'; 
 
 
@@ -14,10 +16,17 @@ const authToken = 'a15564ff3d8554f579c782882ce1ba81';
 const client = require('twilio')(accountSid, authToken);
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 
+app.use(bodyParser.urlencoded({ extended: true}));
+app.use(bodyParser.json());
+
+// app.get('/', function (req, res) {
+//   res.send('online')
+// })
+
 app.get('/', (req, res) => res.send('online'))
 
 //exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, response) => {
-app.post('/dialogflow', express.json(), (req, res) => {
+app.post('/', function (req, res) => {
   const agent = new WebhookClient({ request, response });
 
   
