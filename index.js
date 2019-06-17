@@ -139,6 +139,6 @@ http.createServer(app).listen(1337, () => {
 })
 
 //app.listen(process.env.PORT || 8080)
-app.listen(app.get('port'), function () {
-  console.log('* Webhook service is listening on port:' + app.get('port'))
-})
+// app.listen(app.get('port'), function () {
+//   console.log('* Webhook service is listening on port:' + app.get('port'))
+// })
