@@ -45,9 +45,9 @@ app.post('/', function (req, res) {
   res.end(twiml.toString());
 });
 
-http.createServer(app).listen(1337, () => {
-  console.log('Express server listening on port 1337');
-});
+// http.createServer(app).listen(1337, () => {
+//   console.log('Express server listening on port 1337');
+// });
   
  // app.post('/', (req, res) => {
  // const twiml = new MessagingResponse();
@@ -139,6 +139,6 @@ http.createServer(app).listen(1337, () => {
 })
 
 //app.listen(process.env.PORT || 8080)
-// app.listen(app.get('port'), function () {
-//   console.log('* Webhook service is listening on port:' + app.get('port'))
-// })
+app.listen(app.get('port'), function () {
+  console.log('* Webhook service is listening on port:' + app.get('port'))
+})
