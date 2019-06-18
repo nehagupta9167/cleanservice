@@ -36,7 +36,7 @@ app.use(bodyParser.json());
 app.post('/', function (req, res) {
   const agent = new WebhookClient({ request: req, response: res })
 
-  app.post('/', (req, res) => {
+  app.post('/sms', (req, res) => {
   const twiml = new MessagingResponse();
 
   twiml.message('Okay okay !!!');
