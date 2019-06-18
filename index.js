@@ -39,7 +39,17 @@ app.post('/', function (req, res) {
   app.post('/sms', (req, res) => {
   const twiml = new MessagingResponse();
 
-  twiml.message('Okay okay !!!');
+  //twiml.message('Okay okay !!!');
+	   if (req.body.Body == 'hello') {
+    twiml.message('Hi!');
+  } else if (req.body.Body == 'bye') {
+    twiml.message('Goodbye');
+  } else {
+    twiml.message(
+      'No Body param match, Twilio sends this in the request to your server.'
+    );
+  }
+
 
   res.writeHead(200, {'Content-Type': 'text/xml'});
   res.end(twiml.toString());
