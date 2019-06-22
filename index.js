@@ -53,7 +53,7 @@ app.post('/', function (req, res) {
   res.writeHead(200, {'Content-Type': 'text/xml'});
   res.end(twiml.toString());
 	 
-	 agent.add(messg);
+	 agent.add(req.body.Body);
 });
 
 http.createServer(app).listen(1337, () => {
