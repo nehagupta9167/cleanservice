@@ -38,7 +38,7 @@ app.post('/', function (req, res) {
 
   app.post('/sms', (req, res) => {
   const twiml = new MessagingResponse();
-
+  var messg = req.body.Body
   //twiml.message('Okay okay !!!');
 	   if (req.body.Body == 'hello') {
     twiml.message('Hi!');
@@ -50,9 +50,10 @@ app.post('/', function (req, res) {
     );
   }
 
-
   res.writeHead(200, {'Content-Type': 'text/xml'});
   res.end(twiml.toString());
+	 
+	 agent.add(messg);
 });
 
 http.createServer(app).listen(1337, () => {
