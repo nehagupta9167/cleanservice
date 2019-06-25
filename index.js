@@ -112,7 +112,7 @@ http.createServer(app).listen(1337, () => {
  let intentMap = new Map();
    intentMap.set('cleaningservice', bookservice);
   agent.handleRequest(intentMap);
-
+})
 
 //app.listen(process.env.PORT || 8080)
 app.listen(app.get('port'), function () {
