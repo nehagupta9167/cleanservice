@@ -60,37 +60,9 @@ http.createServer(app).listen(1337, () => {
   console.log('Express server listening on port 1337');
 });
   
- // app.post('/', (req, res) => {
- // const twiml = new MessagingResponse();
-
-//   if (req.body.Body == 'hello') {
-//     twiml.message('Hi!');
-//   } else if (req.body.Body == 'bye') {
-//     twiml.message('Goodbye');
-//   } else {
-//     twiml.message(
-//       'No Body param match, Twilio sends this in the request to your server.'
-//     );
-//   }
-
- // res.writeHead(200, { 'Content-Type': 'text/xml' });
- // res.end(twiml.toString());
-//});
-
-//http.createServer(app).listen(1337, () => {
-//  console.log('Express server listening on port 1337');
-//});
-  
-  
   
   function bookservice (agent) {
-//   var givendate = req.body.queryResult.parameters['date']
-//   var giventime = req.body.queryResult.parameters['time']
-//   var replymsg = 'This is the response from service'
-//   var sidmessg = ""
-//   var webhookReply = 'the service for ' + givendate + 'and' + giventime + '.'
-   
-
+	  
   // parameters are stored in req.body.result.parameters
   const givendate = agent.parameters.date;
   const giventime = agent.parameters.time;
@@ -140,14 +112,7 @@ http.createServer(app).listen(1337, () => {
  let intentMap = new Map();
    intentMap.set('cleaningservice', bookservice);
   agent.handleRequest(intentMap);
-//      res.status(200).json({
-//      source: 'webhook',
-     
-//      speech: 'The  ' +replymsg+ 'for booking' +webhookReply ,
-//      //sid: sidmessg,
-//      displayText: 'The service provider replied: ' +replymsg+ 'for booking' +webhookReply
-// 	     })
-})
+
 
 //app.listen(process.env.PORT || 8080)
 app.listen(app.get('port'), function () {
