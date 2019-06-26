@@ -17,6 +17,15 @@ const accountSid = 'ACf46eea333563a2c457fd524a938e21f2';
 const authToken = 'a15564ff3d8554f579c782882ce1ba81';
 const client = require('twilio')(accountSid, authToken);
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
+const calendarId = '<INSERT CALENDAR ID HERE>'; // Example: 6ujc6j6rgfk02cp02vg6h38cs0@group.calendar.google.com
+const serviceAccount = {};
+const serviceAccountAuth = new google.auth.JWT({
+  email: serviceAccount.client_email,
+  key: serviceAccount.private_key,
+  scopes: 'https://www.googleapis.com/auth/calendar'
+});
+
+const calendar = google.calendar('v3');
 
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
@@ -40,15 +49,25 @@ app.post('/', function (req, res) {
   const twiml = new MessagingResponse();
   var messg = req.body.Body
   //twiml.message('Okay okay !!!');
-	   if (req.body.Body == 'hello') {
+	   if (req.body.Body == 'fine') {
     twiml.message('Hi!');
-  } else if (req.body.Body == 'bye') {
+    calendar.events.insert({ auth: serviceAccountAuth,
+          calendarId: calendarId,
+          resource: {summary: 'Bike Appointment',
+            start: {dateTime: dateTimeStart},
+            end: {dateTime: dateTimeEnd}}
+        }, (err, event) => {
+          err ? reject(err) : resolve(event);
+        }
+        );
+  } else if (req.body.Body == 'no') {
     twiml.message('Goodbye');
   } else {
     twiml.message(
       'No Body param match, Twilio sends this in the request to your server.'
     );
   }
+	  
 
   res.writeHead(200, {'Content-Type': 'text/xml'});
   res.end(twiml.toString());
