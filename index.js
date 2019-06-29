@@ -17,8 +17,19 @@ const accountSid = 'ACf46eea333563a2c457fd524a938e21f2';
 const authToken = 'a15564ff3d8554f579c782882ce1ba81';
 const client = require('twilio')(accountSid, authToken);
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
-const calendarId = '<INSERT CALENDAR ID HERE>'; // Example: 6ujc6j6rgfk02cp02vg6h38cs0@group.calendar.google.com
-const serviceAccount = {};
+const calendarId = '5vku8th8kmv278aakstslivra0@group.calendar.google.com'; // Example: 6ujc6j6rgfk02cp02vg6h38cs0@group.calendar.google.com
+const serviceAccount = {
+  "type": "service_account",
+  "project_id": "textphp-46750",
+  "private_key_id": "6e7a624d236503945c2628ffa2d571446a91ecf8",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC6s1lxU03/VhbQ\nUl+5hM2Xc82Rq4SbEIvClmaOjuPRkhPtRTWnKVOBgynYfzJVUhhjG7bkxjIhlYw8\npMgTc4+zpe6o73j09GrwMqWXj1SuSaCOHQe3UvcrWP0BlZhAhFMzTAFZtKZJWDir\nRGJHen5NFReQRe/MXa38Pslh+n8IhAhtyEHyDxp8QcCeMefyKrsBighCh8xLE7se\nOQUnCp8udZPg8/XVRbkHge5ivV7Fw5QclpQPYOc243eDML6sb1o9ZSr1P7kg4iZs\nTqismr1iSH+iHK7pHVDvciSh3oE3qhwOv/W27BrdhkG4WIlX+vckGwTTnpFJ4aDu\nABP07/ghAgMBAAECggEAEA3H98n//6AOyiRV0tqr4Fq20dB70JGgUup32x5Hp1z2\nQFrJKEc8xPra/aDCWo/P77BnDk5J6pVfalTeV2iCciInNCOTX7d8p+F9rQXyyXck\nn9O4jCJNhU6w7Wfy9ZPrS5KSMyfTfKRiCxK67gaHFxMPOaVUigWBe8UyWoMdqppP\nTayYFOtd9Rcwt76ZhvUXwdwN/oFHZDNxInpAhdKMrfhTIw6mObbgqPIblcNy7G4y\nC1MW+IChMI57lAF+6fv7QRlZ+JX6Kj411xJttYNJ/ppcKkk/obq3zi/3/W/upZ4D\nX6PzAMiVaHoRe1kxmHj4F9A6povJ6e08vO8FfRQ7mQKBgQD2mGgSEPeGRD7N047g\nmO5oDlf2Bc+vyVjRb1V4blqKIBPTvo7KHTKpr0EsBbHQERMqkGHEKlpZiF4RIlQm\nwXvDkz1hvMHc0V2tjnUtBW9l/fEGw75QyH/s5e+DxYhnlvbfZrsRIW6bz++3+lW+\nyzapLn89NB8wKMr6idZBLFSYKwKBgQDB0iuQBrszKh58fFm91iIvkGJC8MRSKlHa\ni1TsBnjKBDDR8JX+H5lyv5yHfrxcaGFge+RFRJfgGBwfba8fvWRvZXi4Q4xNgZ9N\nC97mG5m5AXmZTg5y8wzUr9ipCMxj0QFT1xUoNSRMRwCJrYkQEcDbS3PAiAl1ZyVt\n3xn+0Ege4wKBgQCU3Afm8AscKFJpWc6kUm2Iry/2OifXjApr03ObEbLiMt8FMcFs\nzRdqS3tiIcXnPod9aE88ZfzIk4OFgF2gT6hwtY+WUqYMsO6F+LtPhDptLVC0rrFS\nftaKoXtm5nWjYwSAc7l1a+Mjd/DT9PCSDoZetszkm3RAVD/D4jVOfn5KpQKBgH1D\nzAvFje8/ZXynEYjzgBylgBwrZ3aDC2vnaPcyJ5bIppTInOgknBPhatTXP/2pKGYn\nLBzofA/FBUf6p5gn22Vze1X7sg3VnJM6/NBTPkKnhWNjY0s/cidzjt+QZCiOyADb\nnTzjO5ZgvSQ+F7te/fm9Bg6E3TgXdcVQz4g0LKhpAoGAbhAs0sFKCvQNwv5HxhCY\nLj/7IFw5cOekQ997SSUyS5kt60ZGWtpeM98SDn2hYbtJWi2T9dM8jiE7ZLJfbK40\n2llNQX4/EgTtCVSsExcx5I5UvUz/KG4uHl72yvSBWZZiQzwgASuCSiYZnaC2AEdx\nkdgAUYVcgy7GUlje3v+Ww0c=\n-----END PRIVATE KEY-----\n",
+  "client_email": "cleaning-service-calendar@textphp-46750.iam.gserviceaccount.com",
+  "client_id": "115359850760651651869",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/cleaning-service-calendar%40textphp-46750.iam.gserviceaccount.com"
+} ;
 const serviceAccountAuth = new google.auth.JWT({
   email: serviceAccount.client_email,
   key: serviceAccount.private_key,
