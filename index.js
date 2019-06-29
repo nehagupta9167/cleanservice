@@ -62,15 +62,6 @@ app.post('/', function (req, res) {
   //twiml.message('Okay okay !!!');
 	   if (req.body.Body == 'fine') {
     twiml.message('Hi!');
-    calendar.events.insert({ auth: serviceAccountAuth,
-          calendarId: calendarId,
-          resource: {summary: 'Bike Appointment',
-            start: {dateTime: dateTimeStart},
-            end: {dateTime: dateTimeEnd}}
-        }, (err, event) => {
-          err ? reject(err) : resolve(event);
-        }
-        );
   } else if (req.body.Body == 'no') {
     twiml.message('Goodbye');
   } else {
@@ -113,6 +104,16 @@ http.createServer(app).listen(1337, () => {
         agent.add('Let me know which date and time you want the service');
     }
  
+	  calendar.events.insert({ auth: serviceAccountAuth,
+          calendarId: calendarId,
+          resource: {summary: 'Clesning service ',
+            start: {dateTime: },
+           // end: {dateTime: dateTimeEnd}
+		    }
+        }, (err, event) => {
+          err ? reject(err) : resolve(event);
+        }
+        );
 //    if (req.body.queryResult.parameters['text'] == 'book') {
 //     client.messages.create({
 //       body: 'We want to book a cleaning service  for ' + givendate + 'and' + giventime + '.',
