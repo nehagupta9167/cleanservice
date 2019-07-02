@@ -107,8 +107,8 @@ http.createServer(app).listen(1337, () => {
 	  calendar.events.insert({ auth: serviceAccountAuth,
           calendarId: calendarId,
           resource: {summary: 'Clesning service ',
-            start: {dateTime: },
-           // end: {dateTime: dateTimeEnd}
+            start: {dateTime: givendate },
+            end: {dateTime: giventime }
 		    }
         }, (err, event) => {
           err ? reject(err) : resolve(event);
