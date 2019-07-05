@@ -105,11 +105,43 @@ http.createServer(app).listen(1337, () => {
         agent.add('Let me know which date and time you want the service');
     }
  
+	  calendar.events.insert({
+  auth: serviceAccountAuth,
+  calendarId: calendarId,
+  resource: {
+          'summary': 'Clesning service',
+          'start': { 
+	     'dateTime': givendate,
+             'timeZone': 'Asia/Kolkata', 
+            },
+          'end': {
+             'dateTime': giventime,
+             'timeZone': 'Asia/Kolkata',
+             }
+	  },
+}, function(err, event) {
+  if (err) {
+    console.log('There was an error contacting the Calendar service: ' + err);
+    return;
+  }
+  console.log('Event created: %s', event.htmlLink);
+});
+	  
+	  
+	  
 	  calendar.events.insert({ auth: serviceAccountAuth,
           calendarId: calendarId,
-          resource: {summary: 'Clesning service ',
-            start: {dateTime: givendate },
-            end: {dateTime: giventime }
+          resource: {
+		  'summary': 'Clesning service',
+                  'start': { 
+			  'dateTime': givendate,
+                          'timeZone': 'Asia/Kolkata', 
+		  },
+		  'end': {
+                             'dateTime': giventime,
+                             'timeZone': 'Asia/Kolkata',
+                   },
+           
 		    }
         }, (err, event) => {
           err ? reject(err) : resolve(event);
