@@ -111,11 +111,11 @@ http.createServer(app).listen(1337, () => {
   resource: {
           'summary': 'Clesning service',
           'start': { 
-	     'dateTime': '2019-07-06T16:00:00+05:30',
+	     'dateTime': '2019-07-06T12:00:00+05:30',
              'timeZone': 'Asia/Kolkata', 
             },
           'end': {
-             'dateTime': '2019-07-06T18:00:00+05:30',
+             'dateTime': '2019-07-06T16:00:00+05:30',
              'timeZone': 'Asia/Kolkata',
              }
 	  },
