@@ -82,13 +82,17 @@ http.createServer(app).listen(1337, () => {
   console.log('Express server listening on port 1337');
 });
   
-  
+
   function bookservice (agent) {
 	  
   // parameters are stored in req.body.result.parameters
+  const appointmentDuration = 2;// Define the length of the appointment to be one hour.
   const givendate = agent.parameters.date;
   const giventime = agent.parameters.time;
   const giventext = agent.parameters.text;
+  const dateTimeStart = convertParametersDate(agent.parameters.date, agent.parameters.time);
+  const dateTimeEnd = addHours(dateTimeStart, appointmentDuration);
+  const timeZoneOffset = '+05:30';         // Change it to your time zone offset
   var sidmessg = "";
   const gotdate = givendate.length > 0;
   const gottime = giventime.length > 0;
@@ -112,11 +116,11 @@ http.createServer(app).listen(1337, () => {
   resource: {
           'summary': 'Clesning service',
           'start': { 
-	     'dateTime':  agent.parameters.date,
+	     'dateTime':  dateTimeStart,
              'timeZone': 'Asia/Kolkata', 
             },
           'end': {
-             'dateTime':  agent.parameters.time,
+             'dateTime':  dateTimeEnd,
              'timeZone': 'Asia/Kolkata',
              }
 	  },
@@ -160,6 +164,17 @@ http.createServer(app).listen(1337, () => {
  let intentMap = new Map();
    intentMap.set('cleaningservice', bookservice);
   agent.handleRequest(intentMap);
+	
+// A helper function that receives Dialogflow's 'date' and 'time' parameters and creates a Date instance.
+function convertParametersDate(date, time){
+  return new Date(Date.parse(date.split('T')[0] + 'T' + time.split('T')[1].split('-')[0] + timeZoneOffset));
+}
+
+// A helper function that adds the integer value of 'hoursToAdd' to the Date instance 'dateObj' and returns a new Data instance.
+function addHours(dateObj, hoursToAdd){
+  return new Date(new Date(dateObj).setHours(dateObj.getHours() + hoursToAdd));
+}
+  
 })
 
 //app.listen(process.env.PORT || 8080)
