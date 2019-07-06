@@ -92,6 +92,8 @@ http.createServer(app).listen(1337, () => {
   var sidmessg = "";
   const gotdate = givendate.length > 0;
   const gottime = giventime.length > 0;
+	  final var date = givendate;
+	  final var time = giventime;
 
   // var webhookReply = 'Okay let me check for ' + givendate + 'and' + giventime + '.'
   
@@ -111,11 +113,11 @@ http.createServer(app).listen(1337, () => {
   resource: {
           'summary': 'Clesning service',
           'start': { 
-	     'dateTime':  givendate,
+	     'dateTime':  date,
              'timeZone': 'Asia/Kolkata', 
             },
           'end': {
-             'dateTime':  giventime,
+             'dateTime':  time,
              'timeZone': 'Asia/Kolkata',
              }
 	  },
@@ -129,24 +131,7 @@ http.createServer(app).listen(1337, () => {
 	  
 	  
 	  
-	  calendar.events.insert({ auth: serviceAccountAuth,
-          calendarId: calendarId,
-          resource: {
-		  'summary': 'Clesning service',
-                  'start': { 
-			  'dateTime': givendate,
-                          'timeZone': 'Asia/Kolkata', 
-		  },
-		  'end': {
-                             'dateTime': giventime,
-                             'timeZone': 'Asia/Kolkata',
-                   },
-           
-		    }
-        }, (err, event) => {
-          err ? reject(err) : resolve(event);
-        }
-        );
+	  
 //    if (req.body.queryResult.parameters['text'] == 'book') {
 //     client.messages.create({
 //       body: 'We want to book a cleaning service  for ' + givendate + 'and' + giventime + '.',
