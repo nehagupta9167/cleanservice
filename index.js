@@ -92,8 +92,7 @@ http.createServer(app).listen(1337, () => {
   var sidmessg = "";
   const gotdate = givendate.length > 0;
   const gottime = giventime.length > 0;
-	  final var date = givendate;
-	  final var time = giventime;
+	  
 
   // var webhookReply = 'Okay let me check for ' + givendate + 'and' + giventime + '.'
   
@@ -113,11 +112,11 @@ http.createServer(app).listen(1337, () => {
   resource: {
           'summary': 'Clesning service',
           'start': { 
-	     'dateTime':  date,
+	     'dateTime':  agent.parameters.date,
              'timeZone': 'Asia/Kolkata', 
             },
           'end': {
-             'dateTime':  time,
+             'dateTime':  agent.parameters.time,
              'timeZone': 'Asia/Kolkata',
              }
 	  },
