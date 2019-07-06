@@ -38,6 +38,7 @@ const serviceAccountAuth = new google.auth.JWT({
 });
 
 const calendar = google.calendar('v3');
+const timeZoneOffset = '+05:30';         // Change it to your time zone offset
 
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
@@ -92,7 +93,7 @@ http.createServer(app).listen(1337, () => {
   const giventext = agent.parameters.text;
   const dateTimeStart = convertParametersDate(agent.parameters.date, agent.parameters.time);
   const dateTimeEnd = addHours(dateTimeStart, appointmentDuration);
-  const timeZoneOffset = '+05:30';         // Change it to your time zone offset
+  
   var sidmessg = "";
   const gotdate = givendate.length > 0;
   const gottime = giventime.length > 0;
