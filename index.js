@@ -57,6 +57,8 @@ app.use(bodyParser.json());
 //exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, response) => {
 app.post('/', function (req, res) {
   const agent = new WebhookClient({ request: req, response: res })
+  
+  agent.add('the time is ' + agent.parameters.time + '.');
 
   app.post('/sms', (req, res) => {
   const twiml = new MessagingResponse();
