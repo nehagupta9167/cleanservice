@@ -58,7 +58,20 @@ app.use(bodyParser.json());
 app.post('/', function (req, res) {
   const agent = new WebhookClient({ request: req, response: res })
   
-  agent.add('the time is ' + agent.parameters.time + '.');
+  //agent.add('the time is ' + agent.parameters.time + '.');
+  const appointmentDuration = 2;// Define the length of the appointment to be one hour.
+  const dateTimeStart = convertParametersDate(agent.parameters.date, agent.parameters.time);
+  const dateTimeEnd = addHours(dateTimeStart, appointmentDuration);
+
+	// A helper function that receives Dialogflow's 'date' and 'time' parameters and creates a Date instance.
+function convertParametersDate(date, time){
+  return new Date(Date.parse(date.split('T')[0] + 'T' + time.split('T')[1].split('+')[0] + timeZoneOffset));
+}
+
+// A helper function that adds the integer value of 'hoursToAdd' to the Date instance 'dateObj' and returns a new Data instance.
+function addHours(dateObj, hoursToAdd){
+  return new Date(new Date(dateObj).setHours(dateObj.getHours() + hoursToAdd));
+}
 
   app.post('/sms', (req, res) => {
   const twiml = new MessagingResponse();
@@ -66,6 +79,28 @@ app.post('/', function (req, res) {
   //twiml.message('Okay okay !!!');
 	   if (req.body.Body == 'fine') {
     twiml.message('Hi!');
+    
+		   calendar.events.insert({
+  auth: serviceAccountAuth,
+  calendarId: calendarId,
+  resource: {
+          'summary': 'Clesning service',
+          'start': { 
+	     'dateTime':  dateTimeStart,
+             'timeZone': 'Asia/Kolkata', 
+            },
+          'end': {
+             'dateTime':  dateTimeEnd,
+             'timeZone': 'Asia/Kolkata',
+             }
+	  },
+}, function(err, event) {
+  if (err) {
+    console.log('There was an error contacting the Calendar service: ' + err);
+    return;
+  }
+  console.log('Event created: %s', event.htmlLink);
+});
   } else if (req.body.Body == 'no') {
     twiml.message('Goodbye');
   } else {
@@ -89,12 +124,10 @@ http.createServer(app).listen(1337, () => {
   function bookservice (agent) {
 	  
   // parameters are stored in req.body.result.parameters
-  const appointmentDuration = 2;// Define the length of the appointment to be one hour.
   const givendate = agent.parameters.date;
   const giventime = agent.parameters.time;
   const giventext = agent.parameters.text;
-  const dateTimeStart = convertParametersDate(agent.parameters.date, agent.parameters.time);
-  const dateTimeEnd = addHours(dateTimeStart, appointmentDuration);
+  
   
   var sidmessg = "";
   const gotdate = givendate.length > 0;
@@ -113,29 +146,6 @@ http.createServer(app).listen(1337, () => {
         agent.add('Let me know which date and time you want the service');
     }
  
-	  calendar.events.insert({
-  auth: serviceAccountAuth,
-  calendarId: calendarId,
-  resource: {
-          'summary': 'Clesning service',
-          'start': { 
-	     'dateTime':  dateTimeStart,
-             'timeZone': 'Asia/Kolkata', 
-            },
-          'end': {
-             'dateTime':  dateTimeEnd,
-             'timeZone': 'Asia/Kolkata',
-             }
-	  },
-}, function(err, event) {
-  if (err) {
-    console.log('There was an error contacting the Calendar service: ' + err);
-    return;
-  }
-  console.log('Event created: %s', event.htmlLink);
-});
-	  
-	  
 	  
 	  
 //    if (req.body.queryResult.parameters['text'] == 'book') {
@@ -168,24 +178,7 @@ http.createServer(app).listen(1337, () => {
    intentMap.set('cleaningservice', bookservice);
   agent.handleRequest(intentMap);
 	
-// A helper function that receives Dialogflow's 'date' and 'time' parameters and creates a Date instance.
-function convertParametersDate(date, time){
-  return new Date(Date.parse(date.split('T')[0] + 'T' + time.split('T')[1].split('+')[0] + timeZoneOffset));
-}
 
-// A helper function that adds the integer value of 'hoursToAdd' to the Date instance 'dateObj' and returns a new Data instance.
-function addHours(dateObj, hoursToAdd){
-  return new Date(new Date(dateObj).setHours(dateObj.getHours() + hoursToAdd));
-}
-	// A helper function that converts the Date instance 'dateObj' into a string that represents this time in English.
-function getLocaleTimeString(dateObj){
-  return dateObj.toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, timeZone: timeZone });
-}
-
-// A helper function that converts the Date instance 'dateObj' into a string that represents this date in English. 
-function getLocaleDateString(dateObj){
-  return dateObj.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', timeZone: timeZone });
-}
   
 })
 
