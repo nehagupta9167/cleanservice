@@ -149,11 +149,11 @@ http.createServer(app).listen(1337, () => {
 //     {agent.add('Sorry some some error occured')};
   
   if ( giventext == 'book' || giventext == 'want') {
-    client.messages.create({
-      body: 'We want to book a cleaning service for' +givendate+ 'and' +giventime+ '.',
-      from: '+18727139684',
-      to: '+13313083436'
-     }).then((messsage) => console.log(message.sid));
+//     client.messages.create({
+//       body: 'We want to book a cleaning service for' +givendate+ 'and' +giventime+ '.',
+//       from: '+18727139684',
+//       to: '+13313083436'
+//      }).then((messsage) => console.log(message.sid));
   
 	agent.add('Okay let me check for ' + givendate + 'and' + giventime + '.');
   }
