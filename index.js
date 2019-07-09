@@ -175,6 +175,15 @@ function convertParametersDate(date, time){
 function addHours(dateObj, hoursToAdd){
   return new Date(new Date(dateObj).setHours(dateObj.getHours() + hoursToAdd));
 }
+	// A helper function that converts the Date instance 'dateObj' into a string that represents this time in English.
+function getLocaleTimeString(dateObj){
+  return dateObj.toLocaleTimeString('en-US', { hour: 'numeric', hour12: true, timeZone: timeZone });
+}
+
+// A helper function that converts the Date instance 'dateObj' into a string that represents this date in English. 
+function getLocaleDateString(dateObj){
+  return dateObj.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', timeZone: timeZone });
+}
   
 })
 
