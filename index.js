@@ -168,7 +168,7 @@ http.createServer(app).listen(1337, () => {
 	
 // A helper function that receives Dialogflow's 'date' and 'time' parameters and creates a Date instance.
 function convertParametersDate(date, time){
-  return new Date(Date.parse(date.split('T')[0] + 'T' + time.split('T')[1].split('-')[0] + timeZoneOffset));
+  return new Date(Date.parse(date.split('T')[0] + 'T' + time.split('T')[1].split('+')[0] + timeZoneOffset));
 }
 
 // A helper function that adds the integer value of 'hoursToAdd' to the Date instance 'dateObj' and returns a new Data instance.
