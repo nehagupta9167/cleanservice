@@ -120,7 +120,7 @@ app.get('/find/:query', cors(), function(req, res) {
 	})
 })
 
-var port1 = process.env.PORT || 8080;
+var port1 = process.env.PORT || 8000;
 app.listen(port1, function() {
 	console.log('Node.js listening on port ' + port1);
 });
