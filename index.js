@@ -85,7 +85,7 @@ function addHours(dateObj, hoursToAdd){
 });
 
 var Model = mongoose.model('Model', schemaName);
-mongoose.connect('mongodb://localhost:27017/dbName');
+mongoose.connect('mongodb://127.0.0.1/dbName');
 
 app.get('/save/:query', cors(), function(req, res) {
 	var query = req.params.query;
