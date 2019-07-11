@@ -85,7 +85,7 @@ function addHours(dateObj, hoursToAdd){
 });
 
 var Model = mongoose.model('Model', schemaName);
-mongoose.connect('mongodb://127.0.0.1/dbName');
+mongoose.connect('mongodb://localhost:27017/dbName');
 
 app.get('/save/:query', cors(), function(req, res) {
 	var query = req.params.query;
@@ -120,10 +120,10 @@ app.get('/find/:query', cors(), function(req, res) {
 	})
 })
 
-// var port = process.env.PORT || 8080;
-// app.listen(port, function() {
-// 	console.log('Node.js listening on port ' + port);
-// });
+var port1 = process.env.PORT || 8080;
+app.listen(port1, function() {
+	console.log('Node.js listening on port ' + port1);
+});
 	
 	
   app.post('/sms', (req, res) => {
