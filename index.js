@@ -9,6 +9,9 @@ const app = express()
 const bodyParser = require('body-parser');
 const http = require('http');
 const twilio = require('twilio');
+var cors = require('cors');
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
 process.env.DEBUG = 'dialogflow:*'; 
 
@@ -73,6 +76,56 @@ function addHours(dateObj, hoursToAdd){
   return new Date(new Date(dateObj).setHours(dateObj.getHours() + hoursToAdd));
 }
 
+	var schemaName = new Schema({
+	request: String,
+	timestart: String,
+	timeend: String
+}, {
+	collection: 'collectionName'
+});
+
+var Model = mongoose.model('Model', schemaName);
+mongoose.connect('mongodb://localhost:27017/dbName');
+
+app.get('/save/:query', cors(), function(req, res) {
+	var query = req.params.query;
+
+	var savedata = new Model({
+		'request': query,
+		'timestart': dateTimeStart,  // Time of save the data in unix timestamp format
+		'timeend': dateTimeEnd
+	}).save(function(err, result) {
+		if (err) throw err;
+
+		if(result) {
+			res.json(result)
+		}
+	})
+})
+
+app.get('/find/:query', cors(), function(req, res) {
+	var query = req.params.query;
+
+	Model.find({
+		'request': query
+	}, function(err, result) {
+		if (err) throw err;
+		if (result) {
+			res.json(result)
+		} else {
+			res.send(JSON.stringify({
+				error : 'Error'
+			}))
+		}
+	})
+})
+
+var port = process.env.PORT || 8080;
+app.listen(port, function() {
+	console.log('Node.js listening on port ' + port);
+});
+	
+	
   app.post('/sms', (req, res) => {
   const twiml = new MessagingResponse();
   var messg = req.body.Body
